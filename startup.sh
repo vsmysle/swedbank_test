@@ -11,7 +11,7 @@ echo "${GREEN}>> running project setup ...${RESET}"
 echo "${GREEN}>> starting up sass compiler in background ...${RESET}"
 sass_input_folder=$(cat project_config.json | jq -r '.sass_in')
 sass_output_folder=$(cat project_config.json | jq -r '.sass_out')
-nohup sass --watch ${sass_input_folder}:${sass_output_folder} &
+nohup compass watch --poll . &
 
 # starting flask to run the whole project
 echo "${GREEN}>> starting up the web server ...${RESET}"

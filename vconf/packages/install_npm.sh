@@ -1,4 +1,4 @@
-# cd to import directory
+#!/usr/bin/env bash
 cd /vagrant/vconf
 source provision_helper.sh
 
