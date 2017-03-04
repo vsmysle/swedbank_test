@@ -1,0 +1,27 @@
+{
+  "base_box": "ubuntu/trusty64",
+  "vb_props": {
+    "vm_name": "vagrant_ubuntu_1404_arachnid42.com",
+    "cpu_count": "4",
+    "cpu_cap_p": "70",
+    "ram_amount": "4096"
+  },
+  "prov_base": "./vconf/packages/",
+  "prov_scripts": [
+    "system_update.sh",
+    "install_pip3.sh",
+    "install_flask.sh",
+    "install_sass.sh",
+    "install_jq.sh"
+  ],
+  "env_mod_path": "/etc/profile.d/env_mod.sh",
+  "env_mod_cmds": [
+    "cd /vagrant"
+  ],
+  "forward_ports": {
+    "guest": "5000",
+    "host": "5000"
+  },
+  "sass_in": "app/static/sass",
+  "sass_out": "app/static/css"
+}

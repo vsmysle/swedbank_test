@@ -1,0 +1,7 @@
+__pycache__
+.idea
+.vagrant
+.sass-cache
+nohup.out
+app/static/css
+*.pyc
