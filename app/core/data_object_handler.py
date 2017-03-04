@@ -11,7 +11,7 @@ class DataObjectHandler(object):
     def __init__(self, config_file_path, rebuild=False):
         if path.isfile(config_file_path):
             with open(config_file_path) as cf:
-                self.config = json.load(cf.readlines())
+                self.config = json.load(cf)
                 self.data_dict = None
         else:
             raise ConfigFileNotFound("error: failed to locate config file")

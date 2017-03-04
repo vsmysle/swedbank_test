@@ -10,5 +10,5 @@ def index():
 
 @app.route('/get_data')
 def get_data():
-    json_assembler = JSONAssembler("app/core/core_config.json")
+    json_assembler = JSONAssembler(app.root_path+"/core/core_config.json")
     return json_assembler.get_full_json()

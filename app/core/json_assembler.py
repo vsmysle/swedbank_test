@@ -10,10 +10,8 @@ class JSONAssembler(object):
 
     def __init__(self, config_file_path):
         if path.isfile(config_file_path):
-            with open(config_file_path) as cf:
-                config = json.load(cf.readlines())
-            self.doh = DataObjectHandler(config)
-            self.gdoh = GeoDataObjectHandler(config)
+            self.doh = DataObjectHandler(config_file_path)
+            self.gdoh = GeoDataObjectHandler(config_file_path)
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
 
