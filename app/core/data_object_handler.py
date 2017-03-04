@@ -11,7 +11,7 @@ class DataObjectHandler(object):
     def __init__(self, config_file_path, rebuild=False):
         if path.isfile(config_file_path):
             with open(config_file_path) as cf:
-                self.config = json.load(cf.readlines())
+                self.config = json.load(cf)
                 self.data_dict = None
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
@@ -24,7 +24,10 @@ class DataObjectHandler(object):
         if not self.data_dict:
             dp = DataParser(self.config["data_file_path"], self.config["data_date_format"])
             self.data_dict = dp.parse_csv()
-        return self.data_dict
+        str_only_dict = {}
+        for k, v in self.data_dict.items():
+            str_only_dict[k.strftime(self.config["data_date_format"])] = v
+        return str_only_dict
 
     def get_filtered_data(self, start_date_str, end_date_str):
         if self.data_dict:

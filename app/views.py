@@ -8,7 +8,7 @@ from app.core.json_assembler import *
 def index():
     return render_template('index.html')
 
-@app.route('/get_data')
+@app.route('/get_full_data')
 def get_data():
     json_assembler = JSONAssembler("app/core/core_config.json")
     return json_assembler.get_full_json()

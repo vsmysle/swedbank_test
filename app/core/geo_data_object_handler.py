@@ -8,13 +8,13 @@ class GeoDataObjectHandler(object):
     def __init__(self, config_file_path):
         if path.isfile(config_file_path):
             with open(config_file_path) as cf:
-                self.geo_data_file_path = json.load(cf.readlines())["zip_geo_date_file_path"]
+                self.geo_data_file_path = json.load(cf)["zip_geo_date_file_path"]
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
 
     def fetch_geo_date(self):
         if path.isfile(self.geo_data_file_path):
             with open(self.geo_data_file_path) as gdf:
-                return json.load(gdf.readlines())
+                return json.load(gdf)
         else:
             raise DataFileNotFound("error: failed to locate data file")
