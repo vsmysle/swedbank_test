@@ -12,7 +12,16 @@
     </head>
 
     <body>
-
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <img class="img-responsive" src="{{ url_for('static', filename='res/logo.png') }}"/>
+                        <div class="brand-text">Swedbank Demo Project</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
         <div id="map_container"></div>
     </body>
 </html>
