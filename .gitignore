@@ -6,3 +6,4 @@ nohup.out
 app/static/css
 *.pyc
 *.log
+.~lock*
