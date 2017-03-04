@@ -16,7 +16,7 @@ class DataObjectHandler(object):
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
         self.obj_dump_path = self.config["data_obj_dump_path"]
-        if not rebuild and path.isfile(self.obj_dump_path):
+        if rebuild and path.isfile(self.obj_dump_path):
             with open(self.obj_dump_path, 'rb') as odf:
                 self.data_dict = pkl.load(odf)
 
@@ -24,6 +24,7 @@ class DataObjectHandler(object):
         if not self.data_dict:
             dp = DataParser(self.config["data_file_path"], self.config["data_date_format"])
             self.data_dict = dp.parse_csv()
+            self.dump_data()
         str_only_dict = {}
         for k, v in self.data_dict.items():
             str_only_dict[k.strftime(self.config["data_date_format"])] = v

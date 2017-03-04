@@ -2,5 +2,6 @@
   "data_file_path": "app/data/pivotsalary3.csv",
   "zip_geo_date_file_path": "app/data/sihtnumbri_areaalid.geojson",
   "data_obj_dump_path": "app/backup/data_obj.pkl",
+  "geo_data_obj_dump_path": "app/backup/geo_data_obj.pkl",
   "data_date_format": "%d.%m.%Y"
 }
