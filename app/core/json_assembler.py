@@ -19,7 +19,7 @@ class JSONAssembler(object):
 
     def get_full_json(self):
         json_str = {'geo_data': self.gdoh.fetch_geo_date(), "stat_data": self.doh.prepare_data()}
-        return json_str
+        return json.dumps(json_str)
 
     def get_date_range_json(self, start_date, end_date):
         return json.dumps(self.doh.get_filtered_data(start_date, end_date))

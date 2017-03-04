@@ -15,6 +15,6 @@ class GeoDataObjectHandler(object):
     def fetch_geo_date(self):
         if path.isfile(self.geo_data_file_path):
             with open(self.geo_data_file_path) as gdf:
-                return gdf.readlines()
+                return json.load(gdf.readlines())
         else:
             raise DataFileNotFound("error: failed to locate data file")
