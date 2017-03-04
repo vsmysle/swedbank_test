@@ -15,8 +15,8 @@ $( document ).ready(function(){
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
         id: 'mapbox.light'
     }).addTo(map);
-    $.getJSON($SCRIPT_ROOT+"/get_full_data", function (data) {
-        var geojson = data['geo_data'];
-        geojson.addTo(map);
-    });
+    // $.getJSON($SCRIPT_ROOT+"/get_full_data", function (data) {
+    //     var geojson = data['geo_data'];
+    //     geojson.addTo(map);
+    // });
 });

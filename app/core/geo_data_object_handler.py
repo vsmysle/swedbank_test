@@ -31,7 +31,6 @@ class GeoDataObjectHandler(object):
                     converted_coords = []
                     for coord_pair in feature['geometry']['coordinates'][0]:
                         converted_coords.append(transform(in_proj, out_proj, coord_pair[1], coord_pair[0]))
-                    print(converted_coords)
                     feature['geometry']['coordinates'][0] = converted_coords
                 self.geo_data_dict = raw_geo_data
                 self.dump_data()
