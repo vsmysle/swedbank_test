@@ -1,3 +1,4 @@
+require 'bootstrap-sass'
 require 'compass/import-once/activate'
 require 'autoprefixer-rails'
 # Require any additional compass plugins here.
@@ -7,6 +8,7 @@ http_path = "/"
 css_dir = "app/static/css"
 sass_dir = "app/static/sass"
 images_dir = "app/static/res"
+fonts_dir = 'app/static/fonts'
 javascripts_dir = "app/static/js"
 
 # You can select your preferred output style here (can be overridden via the command line):
@@ -19,19 +21,19 @@ javascripts_dir = "app/static/js"
 # line_comments = false
 
 preferred_syntax = :sass
-
-on_stylesheet_saved do |file|
-  css = File.read(file)
-  map = file + '.map'
-
-  if File.exists? map
-    result = AutoprefixerRails.process(css,
-      from: file,
-      to:   file,
-      map:  { prev: File.read(map), inline: false })
-    File.open(file, 'w') { |io| io << result.css }
-    File.open(map,  'w') { |io| io << result.map }
-  else
-    File.open(file, 'w') { |io| io << AutoprefixerRails.process(css) }
-  end
-end
+#
+# on_stylesheet_saved do |file|
+#   css = File.read(file)
+#   map = file + '.map'
+#
+#   if File.exists? map
+#     result = AutoprefixerRails.process(css,
+#       from: file,
+#       to:   file,
+#       map:  { prev: File.read(map), inline: false })
+#     File.open(file, 'w') { |io| io << result.css }
+#     File.open(map,  'w') { |io| io << result.map }
+#   else
+#     File.open(file, 'w') { |io| io << AutoprefixerRails.process(css) }
+#   end
+# end

@@ -14,8 +14,9 @@
     "install_jq.sh",
     "install_nodejs.sh",
     "install_npm.sh",
-    "install_bower.sh",
-    "install_compass.sh"
+    "install_ruby.sh",
+    "install_compass.sh",
+    "install_bootstrap-sass.sh"
   ],
   "env_mod_path": "/etc/profile.d/env_mod.sh",
   "env_mod_cmds": [

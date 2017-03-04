@@ -15,13 +15,13 @@ $( document ).ready(function(){
 
     var mapboxAccessToken = "pk.eyJ1IjoidnNteXNsZSIsImEiOiJjaXp2aHN1YnQwMDBnMnFwbms0c3JlZnJyIn0.by1qV2ysk6yiAFCc-ADnyQ";
     var map = new L.Map('map_container', {
-         crs: L.CRS.EPSG3857,
-         center: [58.598014, 25.015606],
-         zoom: 8
-    //    crs: crs,
+        crs: L.CRS.EPSG3857,
+        center: [58.598014, 25.015606],
+        zoom: 8
     });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
     }).addTo(map);
+
     var featureCollection = {
         type: 'FeatureCOllection',
         features: []
