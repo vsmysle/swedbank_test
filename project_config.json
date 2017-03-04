@@ -11,10 +11,11 @@
     "system_update.sh",
     "install_pip3.sh",
     "install_flask.sh",
-    "install_sass.sh",
     "install_jq.sh",
     "install_nodejs.sh",
-    "install_npm.sh"
+    "install_npm.sh",
+    "install_bower.sh",
+    "install_compass.sh"
   ],
   "env_mod_path": "/etc/profile.d/env_mod.sh",
   "env_mod_cmds": [
