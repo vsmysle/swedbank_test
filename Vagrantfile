@@ -1,7 +1,7 @@
 require 'json'
 
 # read project configuration JSON
-config = JSON.parse(File.read("config.json"))
+config = JSON.parse(File.read("project_config.json"))
 
 # init provision constants
 BASE_BOX = config["base_box"]                       # vagrant box to build

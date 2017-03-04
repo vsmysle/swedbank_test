@@ -1,7 +1,7 @@
 {
-  "base_box": "ubuntu/trusty64",
+  "base_box": "ubuntu/xenial64",
   "vb_props": {
-    "vm_name": "vagrant_ubuntu_1404_arachnid42.com",
+    "vm_name": "vagrant_u1604_swedbank_test.com",
     "cpu_count": "4",
     "cpu_cap_p": "70",
     "ram_amount": "4096"
