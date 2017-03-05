@@ -3,13 +3,13 @@
  */
 
 function getColor(d) {
-    return d > 4800 ? '#800026' :
-           d > 4000  ? '#BD0026' :
-           d > 3000 ? '#E31A1C' :
-           d > 2000  ? '#FC4E2A' :
-           d > 1000   ? '#FD8D3C' :
-           d > 5000   ? '#FEB24C' :
-           d > 10   ? '#FED976' :
+    return d > 2700 ? '#800026' :
+           d > 2600 ? '#BD0026' :
+           d > 2550 ? '#E31A1C' :
+           d > 2500 ? '#FC4E2A' :
+           d > 2450 ? '#FD8D3C' :
+           d > 2400 ? '#FEB24C' :
+           d > 2350 ? '#FED976' :
                       '#FFEDA0';
 }
 
@@ -63,7 +63,7 @@ $( document ).ready(function() {
                 //}
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
-                    return {color: getColor(stat_geojson[sihtnumber][1])}
+                    return {color: getColor(stat_geojson[sihtnumber][2])}
                 }
             }
         }).addTo(map);
