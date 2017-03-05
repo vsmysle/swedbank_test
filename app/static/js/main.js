@@ -1,6 +1,18 @@
 /**
  * Created by vsmysle on 3/4/17.
  */
+
+function getColor(d) {
+    return d > 4800 ? '#800026' :
+           d > 4000  ? '#BD0026' :
+           d > 3000 ? '#E31A1C' :
+           d > 2000  ? '#FC4E2A' :
+           d > 1000   ? '#FD8D3C' :
+           d > 5000   ? '#FEB24C' :
+           d > 10   ? '#FED976' :
+                      '#FFEDA0';
+}
+
 $( document ).ready(function() {
     var polygonStyle = {
         "color": "#00040a",
@@ -25,18 +37,33 @@ $( document ).ready(function() {
     });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {}).addTo(map);
     $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
-        var geojson = data.geo_data;
-        L.geoJSON(geojson.features, {
+        var data_geojson = data.geo_data;
+        var stat_geojson = data.stat_data;
+        L.geoJSON(data_geojson.features, {
             onEachFeature: function (feature, layer) {
+                var sihtnumber = feature.properties.sihtnumber;
                 layer.bindPopup(feature.properties.sihtnumber);
+                layer.on("mouseover", function (e) {
+                    if (sihtnumber in stat_geojson){
+                        $("#info_bar").empty().append("Zip:"+sihtnumber+
+                            "| Population:"+ Math.round(stat_geojson[sihtnumber][2])+
+                            "| Total Salary:"+ Math.round(stat_geojson[sihtnumber][0])+
+                            "| Average Salary:" + Math.round(stat_geojson[sihtnumber][1]));
+                    }else{
+                       $("#info_bar").empty().append("Zip:"+sihtnumber);
+                    }
+                })
             },
-
             style: function (feature) {
-                switch (feature.geometry.type) {
-                    case 'MultiPolygon':
-                        return {color: "#ff0000"};
-                    case 'Polygon':
-                        return {color: "#0000ff"};
+                //switch (feature.geometry.type) {
+                //case 'MultiPolygon':
+                //        return {color: "#ff0000"};
+                //    case 'Polygon':
+                //        return {color: "#0000ff"};
+                //}
+                var sihtnumber = feature.properties.sihtnumber;
+                if (sihtnumber in stat_geojson) {
+                    return {color: getColor(stat_geojson[sihtnumber][1])}
                 }
             }
         }).addTo(map);
