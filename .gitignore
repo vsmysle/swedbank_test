@@ -8,3 +8,4 @@ app/static/css
 *.pyc
 *.log
 .~lock*
+*.pkl
