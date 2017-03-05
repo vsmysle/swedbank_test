@@ -55,15 +55,10 @@ $( document ).ready(function() {
                 })
             },
             style: function (feature) {
-                //switch (feature.geometry.type) {
-                //case 'MultiPolygon':
-                //        return {color: "#ff0000"};
-                //    case 'Polygon':
-                //        return {color: "#0000ff"};
-                //}
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
-                    return {color: getColor(stat_geojson[sihtnumber][2])}
+                    return {weight: 1,
+                            color: getColor(stat_geojson[sihtnumber][2])}
                 }
             }
         }).addTo(map);
