@@ -27,7 +27,6 @@ $( document ).ready(function() {
     $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
         var geojson = data.geo_data;
         L.geoJSON(geojson.features, {
-
             onEachFeature: function (feature, layer) {
                 layer.bindPopup(feature.properties.sihtnumber);
             },
@@ -42,4 +41,13 @@ $( document ).ready(function() {
             }
         }).addTo(map);
     });
+
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
+  $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
 });

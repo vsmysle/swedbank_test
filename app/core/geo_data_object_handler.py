@@ -34,11 +34,12 @@ class GeoDataObjectHandler(object):
                             tmp_lst = []
                             for coord_pair in pol:
                                 tmp_lst.append(transform(in_proj, out_proj, coord_pair[0], coord_pair[1]))
-                            converted_coords.append(tmp_lst)
+                            converted_coords.append(tmp_lst[::-1])
                     else:
                         for coord_pair in feature['geometry']['coordinates'][0]:
                             converted_coords.append(transform(in_proj, out_proj, coord_pair[0], coord_pair[1]))
-                        feature['geometry']['coordinates'][0] = converted_coords
+                    feature['geometry']['coordinates'][0] = converted_coords
+
                 self.geo_data_dict = raw_geo_data
                 self.dump_data()
             else:
