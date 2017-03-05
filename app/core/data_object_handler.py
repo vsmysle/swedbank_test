@@ -42,9 +42,8 @@ class DataObjectHandler(object):
         srt_keys = sorted(self.data_dict.keys())
         return datetime.strftime(srt_keys[0], self.date_format), datetime.strftime(srt_keys[-1], self.date_format)
 
-    @staticmethod
-    def convert_to_repr(data_dict):
-        zip_centric_dict = {k: [] for k in data_dict[0]}
+    def convert_to_repr(self, data_dict):
+        zip_centric_dict = {k: [] for k in data_dict[datetime.strptime('28.02.2011', self.date_format)]}
         periods = len(data_dict)
         for zip in zip_centric_dict.keys():
             total_sal = 0
@@ -52,9 +51,9 @@ class DataObjectHandler(object):
             total_mob = 0
             for v in data_dict.values():
                 zip_sp_data = v[zip]
-                total_sal += zip_sp_data[0]
-                total_pop += zip_sp_data[1]
-                total_mob += zip_sp_data[2]
+                total_sal += int(zip_sp_data[0])
+                total_pop += int(zip_sp_data[1])
+                total_mob += int(zip_sp_data[2])
             avg_pop = total_pop / periods
             avg_sal = total_sal / avg_pop
             avg_mob = total_mob / periods
