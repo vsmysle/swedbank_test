@@ -1,6 +1,6 @@
 from app.core.shared_exceptions import DataFileNotFound, ConfigFileNotFound
 from pyproj import Proj, transform
-from os import path
+from os import path, makedirs
 import _pickle as pkl
 import json
 
@@ -48,6 +48,8 @@ class GeoDataObjectHandler(object):
 
     def dump_data(self):
         try:
+            if not path.isdir(path.dirname(self.geo_obj_dump_path)):
+                makedirs(path.dirname(self.geo_obj_dump_path))
             with open(self.geo_obj_dump_path, "wb") as f:
                 pkl.dump(self.geo_data_dict, f, -1)
             return True
