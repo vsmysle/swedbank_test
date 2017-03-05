@@ -16,7 +16,7 @@ class DataObjectHandler(object):
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
         self.obj_dump_path = self.config["data_obj_dump_path"]
-        if rebuild and path.isfile(self.obj_dump_path):
+        if not rebuild and path.isfile(self.obj_dump_path):
             with open(self.obj_dump_path, 'rb') as odf:
                 self.data_dict = pkl.load(odf)
 

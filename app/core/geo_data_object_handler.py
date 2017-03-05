@@ -16,7 +16,7 @@ class GeoDataObjectHandler(object):
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
         self.geo_obj_dump_path = self.config["geo_data_obj_dump_path"]
-        if rebuild and path.isfile(self.geo_obj_dump_path):
+        if not rebuild and path.isfile(self.geo_obj_dump_path):
             with open(self.geo_obj_dump_path, 'rb') as odf:
                 self.geo_data_dict = pkl.load(odf)
 
@@ -29,8 +29,15 @@ class GeoDataObjectHandler(object):
                 out_proj = Proj(init='epsg:4326')
                 for feature in raw_geo_data['features']:
                     converted_coords = []
-                    for coord_pair in feature['geometry']['coordinates'][0]:
-                        converted_coords.append(transform(in_proj, out_proj, coord_pair[1], coord_pair[0]))
+                    if feature['geometry']['type'] == 'MultiPolygon':
+                        for pol in feature['geometry']['coordinates'][0]:
+                            tmp_lst = []
+                            for coord_pair in pol:
+                                tmp_lst.append(transform(in_proj, out_proj, coord_pair[1], coord_pair[0]))
+                            converted_coords.append(tmp_lst)
+                    else:
+                        for coord_pair in feature['geometry']['coordinates'][0]:
+                            converted_coords.append(transform(in_proj, out_proj, coord_pair[1], coord_pair[0]))
                     feature['geometry']['coordinates'][0] = converted_coords
                 self.geo_data_dict = raw_geo_data
                 self.dump_data()

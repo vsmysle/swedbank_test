@@ -1,14 +1,23 @@
 @import "bootstrap-compass"
 @import "bootstrap-variables"
+@import "bootstrap-sprockets"
 @import "bootstrap"
 @import "mixins"
+@import "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
 
 body
   margin: 0
   padding: 0
+  display: block
+
+#parent_cont
+  width: 100%
 
 .navbar
+  height: 5%
   display: inline-block
+  float: left
+  box-shadow: 0 0 8px grey
 
 .navbar-brand
   padding: 0
@@ -29,5 +38,44 @@ body
   @include vert_center
 
 #map_container
-  height: 100%
+  float: left
+  position: absolute
+  height: 95%
   width: 100%
+  bottom: 0
+
+#sidebar-wrapper
+  margin-right: -30%
+  right: 0
+  width: 30%
+  background: rgba(0,0,0,0.5)
+  position: fixed
+  height: 100%
+  overflow-y: auto
+  z-index: 1000
+  transition: all 0.5s ease-in 0s
+
+#menu-toggle
+  box-shadow: 0 0 5px grey
+  bottom: 10%
+  right: 0
+  margin: 0
+  border-radius: 5px 0 0 5px
+  border-color: #333333
+  width: 2.5%
+  background-color: #222222
+  position: fixed
+  z-index: 50000
+  .glyphicon
+    color: rgb(157, 157, 157)
+  &:hover
+    .glyphicon
+      color: #FEFEFE
+
+#sidebar-wrapper.active
+  right: 30%
+  width: 30%
+  transition: all 0.5s ease-out 0s
+
+.toggle
+  margin: 5px 5px 0 0
