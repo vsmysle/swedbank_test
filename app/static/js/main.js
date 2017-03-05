@@ -13,42 +13,28 @@ function getColor(d) {
                       '#FCC0C0';
 }
 
-function createRangePicker(data){
+function createRangePicker(data, map){
     $('input[name="datefilter"]').daterangepicker({
-            locale: {
-                format: 'DD/MM/YYYY'
-            },
-            "startDate": "28/02/2011",
-            "endDate": "28/02/2016",
-            "drops": "up"
-            }, function(start, end, label) {
-                $.getJSON($SCRIPT_ROOT+"/get_data_filtered", {
-                    start: start,
-                    end: end
-                }), function (data) {
-                    $('#map_container').empty()
-                    drawMap(data);
-                }
+        locale: {
+            format: 'DD/MM/YYYY'
+        },
+        "startDate": data['date_range'][0],
+        "endDate": data['date_range'][1],
+        "drops": "up"
+    }, function (start, end, label) {
+        $.getJSON($SCRIPT_ROOT + "/get_data_filtered", {
+            start: start.format("DD.MM.YY"),
+            end: end.format("DD.MM.YY")
+        }, function (data) {
+            drawVisualization(data, map);
         });
+    });
 };
 
 
-function drawVisualization(data) {
-
-}
-
-function drawMap(data) {
-    var mapboxAccessToken = "pk.eyJ1IjoidnNteXNsZSIsImEiOiJjaXp2aHN1YnQwMDBnMnFwbms0c3JlZnJyIn0.by1qV2ysk6yiAFCc-ADnyQ";
-    var map = new L.Map('map_container', {
-        crs: L.CRS.EPSG3857,
-        center: [58.598014, 25.015606],
-        zoom: 8
-    });
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {}).addTo(map);
-    $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
+function drawVisualization(data, map) {
         var data_geojson = data.geo_data;
         var stat_geojson = data.stat_data;
-        var dates = data.date_range;
         L.geoJSON(data_geojson.features, {
             onEachFeature: function (feature, layer) {
                 var sihtnumber = feature.properties.sihtnumber;
@@ -79,11 +65,19 @@ function drawMap(data) {
                 }
             }
         }).addTo(map);
-    })};
+}
 
 
 $( document ).ready(function() {
+    var mapboxAccessToken = "pk.eyJ1IjoidnNteXNsZSIsImEiOiJjaXp2aHN1YnQwMDBnMnFwbms0c3JlZnJyIn0.by1qV2ysk6yiAFCc-ADnyQ";
+    var map = new L.Map('map_container', {
+        crs: L.CRS.EPSG3857,
+        center: [58.598014, 25.015606],
+        zoom: 8
+    });
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {}).addTo(map);
     $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
-        
-    };
+        drawVisualization(data, map);
+        createRangePicker(data, map);
+    });
 });
