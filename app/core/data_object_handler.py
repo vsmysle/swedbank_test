@@ -40,7 +40,7 @@ class DataObjectHandler(object):
 
     def get_full_range_boundaries(self):
         srt_keys = sorted(self.data_dict.keys())
-        return datetime.strftime(srt_keys[0], self.date_format), datetime.strftime(srt_keys[-1], self.date_format)
+        return datetime.strftime(srt_keys[0], "%d/%m/%Y"), datetime.strftime(srt_keys[-1], "%d/%m/%Y")
 
     def convert_to_repr(self, data_dict):
         zip_centric_dict = {k: [] for k in data_dict[datetime.strptime('28.02.2011', self.date_format)]}

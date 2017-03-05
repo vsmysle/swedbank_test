@@ -13,22 +13,31 @@ function getColor(d) {
                       '#FCC0C0';
 }
 
-$( document ).ready(function() {
-    var polygonStyle = {
-        "color": "#00040a",
-        "weight": 2,
-        "fillColor": "black",
-        "opacity": 0.2
-    };
-    var multiPolygonStyle = {
-        "color": "red",
-        "weight": 2,
-        "fillColor": "red",
-        "opacity": 0.1
-    };
+function createRangePicker(data){
+    $('input[name="datefilter"]').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            "startDate": "28/02/2011",
+            "endDate": "28/02/2016",
+            "drops": "up"
+            }, function(start, end, label) {
+                $.getJSON($SCRIPT_ROOT+"/get_data_filtered", {
+                    start: start,
+                    end: end
+                }), function (data) {
+                    $('#map_container').empty()
+                    drawMap(data);
+                }
+        });
+};
 
 
+function drawVisualization(data) {
 
+}
+
+function drawMap(data) {
     var mapboxAccessToken = "pk.eyJ1IjoidnNteXNsZSIsImEiOiJjaXp2aHN1YnQwMDBnMnFwbms0c3JlZnJyIn0.by1qV2ysk6yiAFCc-ADnyQ";
     var map = new L.Map('map_container', {
         crs: L.CRS.EPSG3857,
@@ -39,48 +48,42 @@ $( document ).ready(function() {
     $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
         var data_geojson = data.geo_data;
         var stat_geojson = data.stat_data;
+        var dates = data.date_range;
         L.geoJSON(data_geojson.features, {
             onEachFeature: function (feature, layer) {
                 var sihtnumber = feature.properties.sihtnumber;
                 layer.bindPopup(feature.properties.sihtnumber);
                 layer.on("mouseover", function (e) {
-                    if (sihtnumber in stat_geojson){
-                        $("#info_bar").empty().append("Zip:"+sihtnumber+
-                            "| Population:"+ Math.round(stat_geojson[sihtnumber][2])+
-                            "| Total Salary:"+ Math.round(stat_geojson[sihtnumber][0])+
+                    if (sihtnumber in stat_geojson) {
+                        $("#info_bar").empty().append("Zip:" + sihtnumber +
+                            "| Population:" + Math.round(stat_geojson[sihtnumber][2]) +
+                            "| Total Salary:" + Math.round(stat_geojson[sihtnumber][0]) +
                             "| Average Salary:" + Math.round(stat_geojson[sihtnumber][1]));
-                    }else{
-                       $("#info_bar").empty().append("Zip:"+sihtnumber);
+                    } else {
+                        $("#info_bar").empty().append("Zip:" + sihtnumber);
                     }
                 })
             },
             style: function (feature) {
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
-                    return {weight: 1,
-                            color: getColor(stat_geojson[sihtnumber][2])}
+                    return {
+                        weight: 1,
+                        color: getColor(stat_geojson[sihtnumber][2])
+                    }
                 } else {
-                    return {weight: 1,
-                            color: "black"}
+                    return {
+                        weight: 1,
+                        color: "black"
+                    }
                 }
             }
         }).addTo(map);
-        $('#menu-toggle').daterangepicker({
-            "startDate": data.date_range[0],
-            "endDate": data.date_range[1],
-            "drops":"up"
-            }, function(start, end, label) {
-                console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
-        });
-    });
+    })};
 
 
-    $("#menu-close").click(function(e) {
-        e.preventDefault();
-    $("#sidebar-wrapper").toggleClass("active");
-  });
-  $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-    $("#sidebar-wrapper").toggleClass("active");
-  });
+$( document ).ready(function() {
+    $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
+        
+    };
 });
