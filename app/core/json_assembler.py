@@ -22,4 +22,4 @@ class JSONAssembler(object):
 
     def get_date_range_json(self, start_date, end_date):
         f_data = self.doh.get_filtered_data(start_date, end_date)
-        return json.dumps({"stat_data": f_data[0], "date_range": f_data[1:]})
+        return json.dumps({'geo_data': self.gdoh.prepare_geo_date(), "stat_data": f_data[0], "date_range": f_data[1:]})

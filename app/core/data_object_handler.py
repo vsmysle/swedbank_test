@@ -43,27 +43,30 @@ class DataObjectHandler(object):
         return datetime.strftime(srt_keys[0], "%d/%m/%Y"), datetime.strftime(srt_keys[-1], "%d/%m/%Y")
 
     def convert_to_repr(self, data_dict):
-        zip_centric_dict = {k: [] for k in data_dict[datetime.strptime('28.02.2011', self.date_format)]}
-        periods = len(data_dict)
-        for zip in zip_centric_dict.keys():
-            total_sal = 0
-            total_pop = 0
-            total_mob = 0
-            for v in data_dict.values():
-                zip_sp_data = v[zip]
-                total_sal += int(zip_sp_data[0])
-                total_pop += int(zip_sp_data[1])
-                total_mob += int(zip_sp_data[2])
-            avg_pop = total_pop / periods
-            avg_sal = total_sal / avg_pop
-            avg_mob = total_mob / periods
-            zip_centric_dict[zip] = [total_sal, avg_sal, avg_pop, avg_mob]
-        return zip_centric_dict
+        try:
+            zip_centric_dict = {k: [] for k in self.data_dict[datetime.strptime('28.02.2011', self.date_format)]}
+            periods = len(data_dict)
+            for zip in zip_centric_dict.keys():
+                total_sal = 0
+                total_pop = 0
+                total_mob = 0
+                for v in data_dict.values():
+                    zip_sp_data = v[zip]
+                    total_sal += int(zip_sp_data[0])
+                    total_pop += int(zip_sp_data[1])
+                    total_mob += int(zip_sp_data[2])
+                avg_pop = total_pop / periods
+                avg_sal = total_sal / avg_pop
+                avg_mob = total_mob / periods
+                zip_centric_dict[zip] = [total_sal, avg_sal, avg_pop, avg_mob]
+            return zip_centric_dict
+        except ZeroDivisionError:
+            return {}
 
     def dump_data(self):
         try:
-            if not path.isdir(path.dirname(self.geo_obj_dump_path)):
-                makedirs(path.dirname(self.geo_obj_dump_path))
+            if not path.isdir(path.dirname(self.obj_dump_path)):
+                makedirs(path.dirname(self.obj_dump_path))
             with open(self.obj_dump_path, "wb") as f:
                 pkl.dump(self.data_dict, f, -1)
             return True

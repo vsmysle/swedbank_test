@@ -2,6 +2,9 @@
  * Created by vsmysle on 3/4/17.
  */
 
+var GLOBAL_START = "";
+var GLOBAL_END = "";
+
 function getColor(d) {
     return d > 2700 ? '#4B0B0C' :
            d > 2600 ? '#72100F' :
@@ -13,20 +16,22 @@ function getColor(d) {
                       '#FCC0C0';
 }
 
-function createRangePicker(data, map){
-    $('input[name="datefilter"]').daterangepicker({
+function createRangePicker(data, map, layer){
+    $('.btn').daterangepicker({
         locale: {
             format: 'DD/MM/YYYY'
         },
-        "startDate": data['date_range'][0],
-        "endDate": data['date_range'][1],
-        "drops": "up"
+        "minDate": GLOBAL_START,
+        "maxDate": GLOBAL_END,
+        "drops": "up",
+        "opens": "left"
     }, function (start, end, label) {
         $.getJSON($SCRIPT_ROOT + "/get_data_filtered", {
-            start: start.format("DD.MM.YY"),
-            end: end.format("DD.MM.YY")
-        }, function (data) {
-            drawVisualization(data, map);
+            start: start.format("DD.MM.YYYY"),
+            end: end.format("DD.MM.YYYY")
+        }, function (new_data) {
+            map.removeLayer(layer);
+            drawVisualization(new_data, map);
         });
     });
 };
@@ -35,18 +40,18 @@ function createRangePicker(data, map){
 function drawVisualization(data, map) {
         var data_geojson = data.geo_data;
         var stat_geojson = data.stat_data;
-        L.geoJSON(data_geojson.features, {
+        var fancy_night_dress = L.geoJSON(data_geojson.features, {
             onEachFeature: function (feature, layer) {
                 var sihtnumber = feature.properties.sihtnumber;
                 layer.bindPopup(feature.properties.sihtnumber);
                 layer.on("mouseover", function (e) {
                     if (sihtnumber in stat_geojson) {
-                        $("#info_bar").empty().append("Zip:" + sihtnumber +
-                            "| Population:" + Math.round(stat_geojson[sihtnumber][2]) +
-                            "| Total Salary:" + Math.round(stat_geojson[sihtnumber][0]) +
-                            "| Average Salary:" + Math.round(stat_geojson[sihtnumber][1]));
+                        $("#info_bar").empty().append("Zip: " + sihtnumber +
+                            " | Population: " + Math.round(stat_geojson[sihtnumber][2]) +
+                            " | Total Salary: " + Math.round(stat_geojson[sihtnumber][0]) +
+                            " | Average Salary: " + Math.round(stat_geojson[sihtnumber][1]));
                     } else {
-                        $("#info_bar").empty().append("Zip:" + sihtnumber);
+                        $("#info_bar").empty().append("Zip: " + sihtnumber);
                     }
                 })
             },
@@ -54,17 +59,22 @@ function drawVisualization(data, map) {
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
                     return {
-                        weight: 1,
+                        weight: 0.3,
+                        opacity: 1,
+                        fillOpacity: 0.3,
                         color: getColor(stat_geojson[sihtnumber][2])
                     }
                 } else {
                     return {
-                        weight: 1,
-                        color: "black"
+                        weight: 0.3,
+                        fillOpacity: 0.3,
+                        opacity: 0.1,
+                        color: "white"
                     }
                 }
             }
         }).addTo(map);
+        createRangePicker(data, map, fancy_night_dress);
 }
 
 
@@ -77,7 +87,8 @@ $( document ).ready(function() {
     });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {}).addTo(map);
     $.getJSON($SCRIPT_ROOT + "/get_full_data", function (data) {
+        GLOBAL_START = data['date_range'][0];
+        GLOBAL_END = data['date_range'][1];
         drawVisualization(data, map);
-        createRangePicker(data, map);
     });
 });
