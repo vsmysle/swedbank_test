@@ -4,8 +4,6 @@ __pycache__
 .sass-cache
 nohup.out
 app/static/css
-app/static/fonts
-app/static/js/bootstrap*
 *.pyc
 *.log
 .~lock*

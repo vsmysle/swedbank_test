@@ -1,17 +1,32 @@
 @import "bootstrap-compass"
 @import "bootstrap-variables"
 @import "bootstrap"
+@import "mixins"
 
 body
   margin: 0
   padding: 0
 
-.img-responsive
-  height: inherit
+.navbar
+  display: inline-block
 
 .navbar-brand
-  display: block
+  padding: 0
+  width: 150%
+  line-height: 100%
+
+.img-logo
+  height: 100%
   float: left
+
+  img
+    height: 90%
+    @include vert_center
+
+.brand-text
+  float: left
+  margin-left: 2%
+  @include vert_center
 
 #map_container
   height: 100%
