@@ -3,6 +3,7 @@ __pycache__
 .vagrant
 .sass-cache
 nohup.out
+app/backup/*
 app/static/css
 *.pyc
 *.log
