@@ -3,13 +3,14 @@
  */
 
 function getColor(d) {
-    return d > 2700 ? '#800026' :
-           d > 2600 ? '#BD0026' :
-           d > 2550 ? '#E31A1C' :
-           d > 2500 ? '#FC4E2A' :
-           d > 2450 ? '#FD8D3C' :
-           d > 2400 ? '#FEB24C' :
-           d > 2350 ? '#FED976' :
+	var sector = 481520.17840796;
+    return d > 491013 ? '#800026' :
+           d > 218732 ? '#BD0026' :
+           d > 42151 ? '#E31A1C' :
+           d > 6437 ? '#FC4E2A' :
+           d > 3300 ? '#FD8D3C' :
+           d > 1777 ? '#FEB24C' :
+           d > 0 ? '#FED976' :
                       '#FFEDA0';
 }
 
@@ -55,15 +56,10 @@ $( document ).ready(function() {
                 })
             },
             style: function (feature) {
-                //switch (feature.geometry.type) {
-                //case 'MultiPolygon':
-                //        return {color: "#ff0000"};
-                //    case 'Polygon':
-                //        return {color: "#0000ff"};
-                //}
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
-                    return {color: getColor(stat_geojson[sihtnumber][2])}
+                    return {weight: 0.2,
+                            color: getColor(stat_geojson[sihtnumber][0])}
                 }
             }
         }).addTo(map);

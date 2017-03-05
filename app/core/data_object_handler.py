@@ -51,9 +51,9 @@ class DataObjectHandler(object):
             total_mob = 0
             for v in data_dict.values():
                 zip_sp_data = v[zip]
-                total_sal += int(zip_sp_data[0])
-                total_pop += int(zip_sp_data[1])
-                total_mob += int(zip_sp_data[2])
+                total_sal += float(zip_sp_data[0]) if zip_sp_data[0] else 0
+                total_pop += float(zip_sp_data[1])
+                total_mob += float(zip_sp_data[2])
             avg_pop = total_pop / periods
             avg_sal = total_sal / avg_pop
             avg_mob = total_mob / periods
