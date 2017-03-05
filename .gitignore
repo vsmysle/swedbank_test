@@ -8,3 +8,4 @@ app/static/css
 *.log
 .~lock*
 *.pkl
+app/backup

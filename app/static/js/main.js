@@ -59,10 +59,21 @@ $( document ).ready(function() {
                 if (sihtnumber in stat_geojson) {
                     return {weight: 1,
                             color: getColor(stat_geojson[sihtnumber][2])}
+                } else {
+                    return {weight: 1,
+                            color: "black"}
                 }
             }
         }).addTo(map);
+        $('#menu-toggle').daterangepicker({
+            "startDate": data.date_range[0],
+            "endDate": data.date_range[1],
+            "drops":"up"
+            }, function(start, end, label) {
+                console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+        });
     });
+
 
     $("#menu-close").click(function(e) {
         e.preventDefault();
