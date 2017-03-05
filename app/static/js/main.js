@@ -3,14 +3,14 @@
  */
 
 function getColor(d) {
-    return d > 2700 ? '#800026' :
-           d > 2600 ? '#BD0026' :
-           d > 2550 ? '#E31A1C' :
-           d > 2500 ? '#FC4E2A' :
-           d > 2450 ? '#FD8D3C' :
-           d > 2400 ? '#FEB24C' :
-           d > 2350 ? '#FED976' :
-                      '#FFEDA0';
+    return d > 2700 ? '#4B0B0C' :
+           d > 2600 ? '#72100F' :
+           d > 2550 ? '#A10C0E' :
+           d > 2500 ? '#CD1014' :
+           d > 2450 ? '#FF191F' :
+           d > 2400 ? '#FB5A60' :
+           d > 2350 ? '#FEA3A2' :
+                      '#FCC0C0';
 }
 
 $( document ).ready(function() {
@@ -18,7 +18,7 @@ $( document ).ready(function() {
         "color": "#00040a",
         "weight": 2,
         "fillColor": "black",
-        "opacity": 0.1
+        "opacity": 0.2
     };
     var multiPolygonStyle = {
         "color": "red",

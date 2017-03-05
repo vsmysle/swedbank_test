@@ -1,7 +1,7 @@
 from app.core.data_parser import DataParser
 from app.core.shared_exceptions import ConfigFileNotFound, DataDictWasNotInitialized
 from datetime import datetime
-from os import path
+from os import path, makedirs
 import _pickle as pkl
 import json
 
@@ -62,6 +62,8 @@ class DataObjectHandler(object):
 
     def dump_data(self):
         try:
+            if not path.isdir(path.dirname(self.geo_obj_dump_path)):
+                makedirs(path.dirname(self.geo_obj_dump_path))
             with open(self.obj_dump_path, "wb") as f:
                 pkl.dump(self.data_dict, f, -1)
             return True
