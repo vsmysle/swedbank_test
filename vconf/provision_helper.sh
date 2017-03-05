@@ -12,7 +12,7 @@ install_package() {
 
     # running actual installation process
     # passed as a second parameter
-    eval ${inst_cmds} > /dev/null 2>&1
+    eval ${inst_cmds}  #> /dev/null 2>&1
     print_installation_status
   fi
 }

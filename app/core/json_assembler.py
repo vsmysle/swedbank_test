@@ -10,8 +10,8 @@ class JSONAssembler(object):
 
     def __init__(self, config_file_path):
         if path.isfile(config_file_path):
-            self.doh = DataObjectHandler(config_file_path)
-            self.gdoh = GeoDataObjectHandler(config_file_path)
+            self.doh = DataObjectHandler(config_file_path, rebuild=False)
+            self.gdoh = GeoDataObjectHandler(config_file_path, rebuild=False)
         else:
             raise ConfigFileNotFound("error: failed to locate config file")
 
