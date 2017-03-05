@@ -16,8 +16,10 @@ class JSONAssembler(object):
             raise ConfigFileNotFound("error: failed to locate config file")
 
     def get_full_json(self):
-        json_str = {'geo_data': self.gdoh.prepare_geo_date(), "stat_data": self.doh.prepare_data()}
+        stat_data = self.doh.prepare_data()
+        json_str = {'geo_data': self.gdoh.prepare_geo_date(), "stat_data": stat_data[0], "date_range": stat_data[1:]}
         return json.dumps(json_str)
 
     def get_date_range_json(self, start_date, end_date):
-        return json.dumps(self.doh.get_filtered_data(start_date, end_date))
+        f_data = self.doh.get_filtered_data(start_date, end_date)
+        return json.dumps({"stat_data": f_data[0], "date_range": f_data[1:]})

@@ -57,20 +57,35 @@ body
 
 #menu-toggle
   box-shadow: 0 0 5px grey
-  bottom: 10%
+  bottom: 0
   right: 0
   margin: 0
-  border-radius: 5px 0 0 5px
-  border-color: #333333
-  width: 2.5%
-  background-color: #222222
+  border-radius: 5px 0 0 0
+  border: 0
+
+  height: 4.3%
+  background: rgba(0,0,0,0.5)
   position: fixed
   z-index: 50000
-  .glyphicon
-    color: rgb(157, 157, 157)
+
   &:hover
+    color: #F87130
     .glyphicon
-      color: #FEFEFE
+      color: #F87130
+
+#info_bar
+  box-shadow: 0 0 5px grey
+  bottom: 0
+  left: 0
+  margin: 0
+  padding-left: 0
+  border-radius: 0 5px 0 0
+  border: 0
+  width: 35%
+  height: 4.3%
+  background: rgba(0,0,0,0.5)
+  position: fixed
+  z-index: 50000
 
 #sidebar-wrapper.active
   right: 30%
