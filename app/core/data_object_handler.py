@@ -53,11 +53,11 @@ class DataObjectHandler(object):
                 for v in data_dict.values():
                     zip_sp_data = v[zip]
                     total_sal += float(zip_sp_data[0]) if zip_sp_data[0] else 0
-                    total_pop += float(zip_sp_data[1])
-                    total_mob += float(zip_sp_data[2])
-                avg_pop = total_pop / periods
-                avg_sal = total_sal / avg_pop
-                avg_mob = total_mob / periods
+                    total_pop += float(zip_sp_data[1]) if zip_sp_data[1] else 0
+                    total_mob += float(zip_sp_data[2]) if zip_sp_data[2] else 0
+                avg_pop = (total_pop / periods)  if periods else 0
+                avg_sal = (total_sal / avg_pop) if avg_pop else 0
+                avg_mob = (total_mob / periods) if periods else 0
                 zip_centric_dict[zip] = [total_sal, avg_sal, avg_pop, avg_mob]
             return zip_centric_dict
         except ZeroDivisionError:
