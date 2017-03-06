@@ -6,14 +6,15 @@ var GLOBAL_START = "";
 var GLOBAL_END = "";
 
 function getColor(d) {
-    return d > 2700 ? '#4B0B0C' :
-           d > 2600 ? '#72100F' :
-           d > 2550 ? '#A10C0E' :
-           d > 2500 ? '#CD1014' :
-           d > 2450 ? '#FF191F' :
-           d > 2400 ? '#FB5A60' :
-           d > 2350 ? '#FEA3A2' :
-                      '#FCC0C0';
+	var sector = 481520.17840796;
+    return d > 491013 ? '#800026' :
+           d > 218732 ? '#BD0026' :
+           d > 42151 ? '#E31A1C' :
+           d > 6437 ? '#FC4E2A' :
+           d > 3300 ? '#FD8D3C' :
+           d > 1777 ? '#FEB24C' :
+           d > 0 ? '#FED976' :
+                      '#FFEDA0';
 }
 
 function createRangePicker(data, map, layer){
