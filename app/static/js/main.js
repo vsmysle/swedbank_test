@@ -7,14 +7,14 @@ var GLOBAL_END = "";
 
 function getColor(d) {
 	var sector = 481520.17840796;
-    return d > 491013 ? '#800026' :
-           d > 218732 ? '#BD0026' :
-           d > 42151 ? '#E31A1C' :
-           d > 6437 ? '#FC4E2A' :
-           d > 3300 ? '#FD8D3C' :
-           d > 1777 ? '#FEB24C' :
-           d > 0 ? '#FED976' :
-                      '#FFEDA0';
+    return d > 491013 ? '#4B0B0C' :
+           d > 218732 ? '#72100F' :
+           d > 42151 ? '#A10C0E' :
+           d > 6437 ? '#CD1014' :
+           d > 3300 ? '#FF191F' :
+           d > 1777 ? '#FB5A60' :
+           d > 0 ? '#FEA3A2' :
+                      '#FCC0C0';
 }
 
 function createRangePicker(data, map, layer){
@@ -42,21 +42,7 @@ function drawVisualization(data, map) {
         var data_geojson = data.geo_data;
         var stat_geojson = data.stat_data;
         var fancy_night_dress = L.geoJSON(data_geojson.features, {
-            onEachFeature: function (feature, layer) {
-                var sihtnumber = feature.properties.sihtnumber;
-                layer.bindPopup(feature.properties.sihtnumber);
-                layer.on("mouseover", function (e) {
-                    if (sihtnumber in stat_geojson) {
-                        $("#info_bar").empty().append("Zip: " + sihtnumber +
-                            " | Population: " + Math.round(stat_geojson[sihtnumber][2]) +
-                            " | Total Salary: " + Math.round(stat_geojson[sihtnumber][0]) +
-                            " | Average Salary: " + Math.round(stat_geojson[sihtnumber][1]));
-                    } else {
-                        $("#info_bar").empty().append("Zip: " + sihtnumber);
-                    }
-                })
-            },
-            style: function (feature) {
+             style: function (feature) {
                 var sihtnumber = feature.properties.sihtnumber;
                 if (sihtnumber in stat_geojson) {
                     return {
@@ -73,7 +59,22 @@ function drawVisualization(data, map) {
                         color: "white"
                     }
                 }
+            },
+            onEachFeature: function (feature, layer) {
+                var sihtnumber = feature.properties.sihtnumber;
+                layer.bindPopup(feature.properties.sihtnumber);
+                layer.on("mouseover", function (e) {
+                    if (sihtnumber in stat_geojson) {
+                        $("#info_bar").empty().append("Zip: " + sihtnumber +
+                            " | Population: " + Math.round(stat_geojson[sihtnumber][2]) +
+                            " | Total Salary: " + Math.round(stat_geojson[sihtnumber][0]) +
+                            " | Average Salary: " + Math.round(stat_geojson[sihtnumber][1]));
+                    } else {
+                        $("#info_bar").empty().append("Zip: " + sihtnumber);
+                    }
+                })
             }
+
         }).addTo(map);
         createRangePicker(data, map, fancy_night_dress);
 }
